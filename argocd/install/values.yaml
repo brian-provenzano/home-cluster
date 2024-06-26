@@ -1,0 +1,96 @@
+## Argo CD configuration
+
+## Globally shared configuration
+global:
+  # -- Default priority class for all components
+  priorityClassName: ""
+
+  # -- Default [TopologySpreadConstraints] rules for all components
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+  ## If labelSelector is left out, it will default to the labelSelector of the component
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: ScheduleAnyway
+
+## Application controller
+controller:
+  # -- Resource limits and requests for the application controller pods
+  resources:
+   limits:
+     memory: 384Mi
+   requests:
+     cpu: 250m
+     memory: 384Mi
+
+## Dex
+dex:
+  # -- Resource limits and requests for dex
+  resources:
+   limits:
+     memory: 64Mi
+   requests:
+     cpu: 25m
+     memory: 64Mi
+
+## Redis
+redis:
+  # -- Resource limits and requests for redis
+  resources:
+   limits:
+     memory: 128Mi
+   requests:
+     cpu: 100m
+     memory: 128Mi
+
+## Redis-HA subchart replaces custom redis deployment when `redis-ha.enabled=true`
+# Ref: https://github.com/DandyDeveloper/charts/blob/master/charts/redis-ha/values.yaml
+redis-ha:
+  # -- Enables the Redis HA subchart and disables the custom Redis single node deployment
+  enabled: true
+
+## Server
+server:
+  # -- The number of server pods to run (setup for HA with 2)
+  replicas: 2
+  # -- Resource limits and requests for the Argo CD server
+  resources: 
+   limits:
+     memory: 128Mi
+   requests:
+     cpu: 50m
+     memory: 128Mi
+
+## Repo Server
+repoServer:
+  # -- The number of repo server pods to run (HA run 2)
+  replicas: 2
+  # -- Resource limits and requests for the repo server pods
+  resources:
+   limits:
+     memory: 128Mi
+   requests:
+     cpu: 10m
+     memory: 128Mi
+
+## ApplicationSet controller
+applicationSet:
+  # -- The number of ApplicationSet controller pods to run (2 for HA)
+  replicas: 2
+  # -- Resource limits and requests for the ApplicationSet controller pods.
+  resources:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+## Notifications controller
+notifications:
+  # -- Resource limits and requests for the notifications controller
+  resources:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
