@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/brian-provenzano/home-cluster.git
-    path: argocd/applications/argo-cd
+    path: argocd/applications/argocd
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
