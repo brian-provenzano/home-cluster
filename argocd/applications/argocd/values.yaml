@@ -1,4 +1,4 @@
-## Argo CD configuration
+## Argo CD configuration values overrides
 
 ## Globally shared configuration
 global:

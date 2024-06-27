@@ -1,0 +1,1 @@
+Put these in the talos bootstrap config (controlplane.yaml) - these come baked into the cluster at start

@@ -1,0 +1,5 @@
+# add to bootstrap
+apiVersion: scheduling.k8s.io/v1
+description: Custom class - higher than apps but lower than k8s canned critical classes
+kind: PriorityClass
+value: 1000000

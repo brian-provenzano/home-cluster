@@ -1,0 +1,4 @@
+apiVersion: v2
+name: root-app
+description: root
+version: 1.0.0
