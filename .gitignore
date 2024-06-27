@@ -4,3 +4,4 @@ talosconfig
 controlplane.yaml
 worker.yaml
 .DS_Store
+argo*install*.yaml
