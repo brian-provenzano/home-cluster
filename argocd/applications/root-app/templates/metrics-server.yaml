@@ -12,6 +12,8 @@ spec:
     helm:
       values: |
         # See https://github.com/kubernetes-sigs/metrics-server#scaling
+        args:
+          - --kubelet-insecure-tls
         resources:
           requests:
             cpu: 100m
