@@ -5,7 +5,9 @@ metadata:
   namespace: argocd
 spec:
   project: default
-  info: "The root app that forms the app of app pattern - all other apps are children"
+  info: 
+    - name: "Description"
+      value: "The root app that forms the app of app pattern - all other apps are children"
   source:
     repoURL: https://github.com/brian-provenzano/home-cluster.git
     path: argocd/applications/root-app/
