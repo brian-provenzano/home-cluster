@@ -87,10 +87,7 @@ storageClassConfigs:
       defaultClass: true
       defaultVolumeType: hostPath
       reclaimPolicy: Delete
-    # sharedFileSystemPath: ""
-    # ## OR
-    # # See above
-    # nodePathMap: {}
+      nodePathMap: {} # use default in configmap
     
 podAnnotations: {}
 
