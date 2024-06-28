@@ -80,14 +80,14 @@ nodePathMap:
 # Each storage class must have a unique name, and contains the same fields as shown above for
 # a single storage class setup, EXCEPT for the provisionerName, which is the same for all
 # storage classes, and name, which is the key of the map.
-storageClassConfigs:
-  local-provisioner-class:
-    storageClass:
-      create: true
-      defaultClass: true
-      defaultVolumeType: hostPath
-      reclaimPolicy: Delete
-      nodePathMap: {} # use default in configmap
+# storageClassConfigs:
+#   local-provisioner-class:
+#     storageClass:
+#       create: true
+#       defaultClass: true
+#       defaultVolumeType: hostPath
+#       reclaimPolicy: Delete
+#       nodePathMap: {} # use default in configmap
     
 podAnnotations: {}
 
