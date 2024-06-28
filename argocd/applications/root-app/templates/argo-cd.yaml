@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  info: "Argo CD is a declarative, GitOps continuous delivery tool for Kubernetes."
   source:
     repoURL: https://github.com/brian-provenzano/home-cluster.git
     path: argocd/applications/argocd

@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  info: "Metrics Server collects resource metrics from Kubelets and exposes them in Kubernetes apiserver through Metrics API for use by Horizontal Pod Autoscaler and Vertical Pod Autoscaler."
   source:
     repoURL: https://kubernetes-sigs.github.io/metrics-server/ # chart repo
     chart: metrics-server # chart name
