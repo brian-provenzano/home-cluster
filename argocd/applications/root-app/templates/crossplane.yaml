@@ -10,7 +10,7 @@ spec:
        value: "Crossplane is an open source Kubernetes extension that transforms your Kubernetes cluster into a universal control plane."
   source:
     repoURL: https://charts.crossplane.io/stable # chart repo
-    chart: crossplane-stable # chart name
+    chart: crossplane # chart name
     targetRevision: 1.16.0 # chart version
     helm:
       values: |
