@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: crossplane
+  namespace: argocd
+spec:
+  project: default
+  info: 
+     - name: "Description"
+       value: "Crossplane is an open source Kubernetes extension that transforms your Kubernetes cluster into a universal control plane."
+  source:
+    repoURL: https://charts.crossplane.io/stable # chart repo
+    chart: crossplane-stable # chart name
+    targetRevision: 1.16.0 # chart version
+    helm:
+      values: |
+        # values.yaml
+
+        # -- The PriorityClass name to apply to the Crossplane and RBAC Manager pods.
+        priorityClassName: "application-cluster-critical"
+
+        resourcesCrossplane:
+          limits:
+            # -- Memory resource limits for the Crossplane pod.
+            memory: 1024Mi
+          requests:
+            # -- CPU resource requests for the Crossplane pod.
+            cpu: 100m
+            # -- Memory resource requests for the Crossplane pod.
+            memory: 1024Mi
+
+        resourcesRBACManager:
+          limits:
+            # -- Memory resource limits for the RBAC Manager pod.
+            memory: 512Mi
+          requests:
+            # -- CPU resource requests for the RBAC Manager pod.
+            cpu: 100m
+            # -- Memory resource requests for the RBAC Manager pod.
+            memory: 512Mi
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: crossplane-system
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
