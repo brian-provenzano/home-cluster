@@ -3,7 +3,7 @@
 ## Globally shared configuration
 global:
   # -- Default priority class for all components
-  priorityClassName: ""
+  priorityClassName: "application-cluster-critical"
 
   # -- Default [TopologySpreadConstraints] rules for all components
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
