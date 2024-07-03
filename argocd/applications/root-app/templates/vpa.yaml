@@ -1,0 +1,66 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vpa
+  namespace: argocd
+spec:
+  project: default
+  info: 
+     - name: "Description"
+       value: "Vertical Pod Autoscaler"
+  source:
+    repoURL: https://charts.fairwinds.com/stable # chart repo
+    chart: vpa # chart name
+    targetRevision: 4.5.0 # chart version
+    helm:
+      values: |
+        # See https://artifacthub.io/packages/helm/fairwinds-stable/vpa
+        # We are only using recommender for now; metrics server is handled in sep helm chart
+
+        # priorityClassName -- To set the priorityclass for all pods
+        priorityClassName: "application-cluster-critical"
+        
+        serviceAccount:
+          # serviceAccount.create -- Specifies whether a service account should be created for each component
+          create: true
+          # serviceAccount.annotations -- Annotations to add to the service accounts for each component
+          annotations: {}
+          # serviceAccount.name -- The base name of the service account to use (appended with the component). If not set and create is true, a name is generated using the fullname template and appended for each component
+          name: ""
+          # serviceAccount.automountServiceAccountToken -- Automount API credentials for the Service Account
+          automountServiceAccountToken: true
+
+        recommender:
+          # recommender.enabled -- If true, the vpa recommender component will be installed.
+          enabled: true
+          replicaCount: 2
+          # recommender.podDisruptionBudget -- This is the setting for the pod disruption budget
+          podDisruptionBudget:
+            maxUnavailable: 1
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 256Mi
+
+        updater:
+          # updater.enabled -- If true, the updater component will be deployed
+          enabled: false
+
+        admissionController:
+          # admissionController.enabled -- If true, will install the admission-controller component of vpa
+          enabled: false
+          
+        # metrics-server -- configuration options for the [metrics server Helm chart](https://github.com/kubernetes-sigs/metrics-server/tree/master/charts/metrics-server). See the projects [README.md](https://github.com/kubernetes-sigs/metrics-server/tree/master/charts/metrics-server#configuration) for all available options
+        metrics-server:
+          # metrics-server.enabled -- Whether or not the metrics server Helm chart should be installed
+          enabled: false
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
