@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vpa
+  namespace: argocd
+spec:
+  project: default
+  info: 
+     - name: "Description"
+       value: "Fairwinds Goldilocks for Vertical Pod Autoscaler"
+  source:
+    repoURL: https://charts.fairwinds.com/stable # chart repo
+    chart: goldilocks # chart name
+    targetRevision: 8.0.2 # chart version
+    helm:
+      values: |
+        # values : https://artifacthub.io/packages/helm/fairwinds-stable/goldilocks
+
+        controller:
+          # controller.topologySpreadConstraints -- Topology spread constraints for the controller pods
+          topologySpreadConstraints: []
+          # controller.resources -- The resources block for the controller pods
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              cpu: 25m
+              memory: 256Mi
+          
+        dashboard:
+          # dashboard.resources -- A resources block for the dashboard.
+          resources:
+            limits:
+              memory: 256Mi
+            requests:
+              cpu: 25m
+              memory: 256Mi
+          # dashboard.topologySpreadConstraints -- Topology spread constraints for the dashboard pods
+          topologySpreadConstraints: []
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: goldilocks
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
