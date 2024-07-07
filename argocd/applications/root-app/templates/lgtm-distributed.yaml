@@ -1,0 +1,31 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lgtm-distributed
+  namespace: argocd
+spec:
+  project: default
+  info: 
+     - name: "Description"
+       value: "LGTM helm chart (loki, grafana,tempo,mimir)"
+  source:
+    repoURL: https://grafana.github.io/helm-charts # chart repo
+    chart: lgtm-distributed # chart name
+    targetRevision: 2.1.0  # chart version
+    helm:
+      values: |
+        # https://github.com/grafana/helm-charts/tree/main/charts/lgtm-distributed
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: lgtm
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    managedNamespaceMetadata:
+      labels:
+        goldilocks.fairwinds.com/enabled: "true"
+    automated:
+      prune: true
+      selfHeal: true
