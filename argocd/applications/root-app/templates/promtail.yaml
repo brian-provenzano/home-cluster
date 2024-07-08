@@ -19,8 +19,6 @@ spec:
 
         priorityClassName: application-cluster-critical
 
-        podLabels: {"pod-security.kubernetes.io/enforce":"privileged"}
-
         # -- Resource requests and limits
         resources:
          limits:
@@ -38,6 +36,7 @@ spec:
     managedNamespaceMetadata:
       labels:
         goldilocks.fairwinds.com/enabled: "true"
+        pod-security.kubernetes.io/enforce: "privileged" # bc of hostpath required by promtail; makes podsec happy
     automated:
       prune: true
       selfHeal: true
