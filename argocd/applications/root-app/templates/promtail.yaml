@@ -19,7 +19,7 @@ spec:
 
         priorityClassName: application-cluster-critical
 
-        podLabels: {"pod-security.kubernetes.io/enforce":"privileged"}
+        podLabels: {"pod-security.kubernetes.io/enforce:privileged"}
 
         # -- Resource requests and limits
         resources:
