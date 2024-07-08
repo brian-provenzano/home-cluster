@@ -19,6 +19,10 @@ spec:
 
         priorityClassName: application-cluster-critical
 
+        config:
+          clients:
+            - url: http://lgtm-distributed-loki-distributor.lgtm:3100/loki/api/v1/push
+
         # -- Resource requests and limits
         resources:
          limits:
