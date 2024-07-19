@@ -42,7 +42,7 @@ spec:
         topologySpreadConstraints:
          - labelSelector:
              matchLabels:
-               app.kubenetes.io/name: '{{ template "traefik.name" . }}'
+               app.kubenetes.io/name: traefik
            maxSkew: 1
            topologyKey: kubernetes.io/hostname
            whenUnsatisfiable: DoNotSchedule
