@@ -28,12 +28,6 @@ spec:
           maxUnavailable: 1
           minUnavailable: 1
         
-        updateStrategy:
-          type: RollingUpdate
-          rollingUpdate:
-            maxUnavailable: 25%
-            minUnavailable: 25%
-        
         logs:
           access:
             enabled: true
