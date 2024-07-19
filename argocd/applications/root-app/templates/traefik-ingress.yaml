@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://traefik.github.io/charts # chart repo
     chart: traefik # chart name
-    targetRevision: 28.3.0  # chart version
+    targetRevision: 29.0.1  # chart version
     helm:
       values: |
         # Default values for Traefik
@@ -21,7 +21,31 @@ spec:
           # -- Deployment or DaemonSet
           kind: Deployment
           # -- Number of pods of the deployment (only applies when kind == Deployment)
-          replicas: 1
+          replicas: 2
+        
+        podDisruptionBudget:
+          enabled: true
+          maxUnavailable: 1
+          minUnavailable: 1
+        
+        updateStrategy:
+          type: RollingUpdate
+          rollingUpdate:
+            maxUnavailable: 25%
+            minUnavailable: 25%
+        
+        logs:
+          access:
+            enabled: true
+            format: json
+        
+        topologySpreadConstraints:
+         - labelSelector:
+             matchLabels:
+               app.kubenetes.io/name: '{{ template "traefik.name" . }}'
+           maxSkew: 1
+           topologyKey: kubernetes.io/hostname
+           whenUnsatisfiable: DoNotSchedule
 
         # -- Create a default IngressClass for Traefik
         ingressClass:
