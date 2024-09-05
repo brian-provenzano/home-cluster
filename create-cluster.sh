@@ -24,3 +24,15 @@ talosctl --talosconfig=../old/talosconfig --nodes 10.0.4.202 -e 10.0.4.201 reset
 
 # control plane no-HA
 talosctl --talosconfig=../old/talosconfig --nodes 10.0.4.201 -e 10.0.4.201 reset --graceful=false
+
+#upgrade talos
+
+# control plane - needs preserve=true bc single member etcd
+talosctl upgrade --talosconfig=./talosconfig \
+    --nodes 10.0.4.201 --preserve=true --image ghcr.io/siderolabs/installer:v1.7.6 -e 10.0.4.201
+
+# each member - no preserve (202,203,204)
+❯ talosctl upgrade --talosconfig=./talosconfig \
+    --nodes 10.0.4.202 --image ghcr.io/siderolabs/installer:v1.7.6 -e 10.0.4.201
+
+## upgrade kubernetes
