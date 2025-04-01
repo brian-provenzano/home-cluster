@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://kubernetes-sigs.github.io/metrics-server/ # chart repo
     chart: metrics-server # chart name
-    targetRevision: 3.12.1 # chart version
+    targetRevision: 3.12.2 # chart version
     helm:
       values: |
         # See https://github.com/kubernetes-sigs/metrics-server#scaling
