@@ -25,8 +25,8 @@ spec:
         
         podDisruptionBudget:
           enabled: true
-          maxUnavailable: 1
-          minUnavailable: 1
+          maxUnavailable: "1"
+          minUnavailable: "1"
         
         logs:
           access:
