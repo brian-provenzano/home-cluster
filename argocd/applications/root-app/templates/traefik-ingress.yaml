@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://traefik.github.io/charts # chart repo
     chart: traefik # chart name
-    targetRevision: 29.0.1  # chart version
+    targetRevision: 34.5.0  # chart version
     helm:
       values: |
         # Default values for Traefik

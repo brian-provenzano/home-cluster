@@ -16,6 +16,9 @@ spec:
     repoURL: https://traefik.github.io/charts # chart repo
     chart: traefik-crds # chart name 
     targetRevision: 1.6.0  # chart version
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
   syncPolicy:
     automated:
       prune: true
