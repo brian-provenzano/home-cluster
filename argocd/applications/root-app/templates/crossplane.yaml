@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://charts.crossplane.io/stable # chart repo
     chart: crossplane # chart name
-    targetRevision: 1.16.0 # chart version
+    targetRevision: 1.19.1 # chart version
     helm:
       values: |
         # values.yaml
