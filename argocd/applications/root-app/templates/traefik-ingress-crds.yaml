@@ -1,0 +1,22 @@
+# https://github.com/traefik/traefik-helm-chart/blob/master/traefik-crds/Chart.yaml
+#
+# NOTE: upgrade to use CRD chart - did this before adding this crd chart as prereq so cahrt owns CRDs going forward: 
+# https://github.com/traefik/traefik-helm-chart?tab=readme-ov-file#a-standard-installation
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik-crds
+  namespace: argocd
+spec:
+  project: default
+  info: 
+     - name: "Description"
+       value: "Traefik Ingress Controller CRDs"
+  source:
+    repoURL: https://traefik.github.io/charts # chart repo
+    chart: traefik-crds # chart name 
+    targetRevision: 1.6.0  # chart version
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
