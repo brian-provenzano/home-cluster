@@ -1,46 +1,46 @@
 
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: promtail
-  namespace: argocd
-spec:
-  project: default
-  info:   
-     - name: "Description"
-       value: "Promtail agent for Loki ingestion for logs"
-  source:
-    repoURL: https://grafana.github.io/helm-charts # chart repo
-    chart: promtail # chart name
-    targetRevision: 6.16.3  # chart version
-    helm:
-      values: |
-        # https://artifacthub.io/packages/helm/grafana/promtail
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: promtail
+#   namespace: argocd
+# spec:
+#   project: default
+#   info:   
+#      - name: "Description"
+#        value: "Promtail agent for Loki ingestion for logs"
+#   source:
+#     repoURL: https://grafana.github.io/helm-charts # chart repo
+#     chart: promtail # chart name
+#     targetRevision: 6.16.3  # chart version
+#     helm:
+#       values: |
+#         # https://artifacthub.io/packages/helm/grafana/promtail
 
-        priorityClassName: application-cluster-critical
+#         priorityClassName: application-cluster-critical
 
-        config:
-          clients:
-            - url: http://lgtm-distributed-loki-distributor.lgtm:3100/loki/api/v1/push
+#         config:
+#           clients:
+#             - url: http://lgtm-distributed-loki-distributor.lgtm:3100/loki/api/v1/push
 
-        # -- Resource requests and limits
-        resources:
-         limits:
-           memory: 128Mi
-         requests:
-           cpu: 100m
-           memory: 128Mi
+#         # -- Resource requests and limits
+#         resources:
+#          limits:
+#            memory: 128Mi
+#          requests:
+#            cpu: 100m
+#            memory: 128Mi
 
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: promtail
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    managedNamespaceMetadata:
-      labels:
-        goldilocks.fairwinds.com/enabled: "true"
-        pod-security.kubernetes.io/enforce: "privileged" # bc of hostpath required by promtail; makes podsec happy
-    automated:
-      prune: true
-      selfHeal: true
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: promtail
+#   syncPolicy:
+#     syncOptions:
+#       - CreateNamespace=true
+#     managedNamespaceMetadata:
+#       labels:
+#         goldilocks.fairwinds.com/enabled: "true"
+#         pod-security.kubernetes.io/enforce: "privileged" # bc of hostpath required by promtail; makes podsec happy
+#     automated:
+#       prune: true
+#       selfHeal: true
