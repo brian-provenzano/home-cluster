@@ -1,0 +1,51 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: default
+  info:   
+     - name: "Description"
+       value: "Cert Manager"
+  source:
+    repoURL: https://charts.jetstack.io  # chart repo
+    chart: cert-manager # chart name
+    targetRevision: v1.17.1 # chart version
+    helm:
+      values: |
+        # https://github.com/argoproj/argo-helm/blob/main/charts/argo-rollouts/values.yaml
+
+        global:
+          # The optional priority class to be used for the cert-manager pods.
+          priorityClassName: "application-cluster-critical"
+
+        crds:
+          # This option decides if the CRDs should be installed
+          # as part of the Helm installation.
+          enabled: true
+
+          # This option makes it so that the "helm.sh/resource-policy": keep
+          # annotation is added to the CRD. This will prevent Helm from uninstalling
+          # the CRD when the Helm release is uninstalled.
+          # WARNING: when the CRDs are removed, all cert-manager custom resources
+          # (Certificates, Issuers, ...) will be removed too by the garbage collector.
+          keep: true
+
+        # Resources to provide to the cert-manager controller pod.
+        # For more information, see [Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+        resources:
+          limits:
+            memory: 64Mi
+          requests:
+            cpu: 10m
+            memory: 32Mi
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
