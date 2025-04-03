@@ -1,0 +1,36 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-rollouts
+  namespace: argocd
+spec:
+  project: default
+  info:   
+     - name: "Description"
+       value: "ArgoCD Rollouts"
+  source:
+    repoURL: https://argoproj.github.io/argo-helm # chart repo
+    chart: argo-rollouts # chart name
+    targetRevision: 2.39.5 # chart version
+    helm:
+      values: |
+        # https://github.com/argoproj/argo-helm/blob/main/charts/argo-rollouts/values.yaml
+        controller:
+          # -- [priorityClassName] for the controller
+          priorityClassName: "application-cluster-critical"
+          # -- Resource limits and requests for the controller pods.
+          resources:
+          limits:
+            memory: 128Mi
+            ephemeral-storage: 1Gi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
