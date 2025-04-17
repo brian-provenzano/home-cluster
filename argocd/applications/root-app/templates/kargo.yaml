@@ -15,7 +15,10 @@ spec:
     helm:
       values: |
         # values : https://github.com/akuity/kargo/blob/main/charts/kargo/values.yaml
-        # TODO
+        # created this locally and applied (secret with auth)
+        api:
+          secret:
+            name: kargo-admin
   destination:
     server: https://kubernetes.default.svc
     namespace: kargo
