@@ -1,32 +1,32 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: kargo
-#   namespace: argocd
-# spec:
-#   project: default
-#   info: 
-#      - name: "Description"
-#        value: "Kargo CD Promtion / Orchestration"
-#   source:
-#     repoURL: ghcr.io/akuity/kargo-charts # chart repo
-#     chart: kargo # chart name
-#     targetRevision: 0.1.0 # chart version
-#     helm:
-#       parameters:
-#       - name: "api.secret.name"
-#         value: kargo-api-admin
-#       # values: |
-#       #   # values : https://github.com/akuity/kargo/blob/main/charts/kargo/values.yaml
-#           # https://docs.kargo.io/operator-guide/security/secure-configuration/#securing-the-admin-account
-#       #   # created this secret locally and applied (secret with auth; also precreating the ns bc of this)
-#       #   api:
-#       #     secret:
-#       #       name: kargo-api-admin
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: kargo
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kargo
+  namespace: argocd
+spec:
+  project: default
+  info: 
+     - name: "Description"
+       value: "Kargo CD Promtion / Orchestration"
+  source:
+    repoURL: ghcr.io/akuity/kargo-charts # chart repo
+    chart: kargo # chart name
+    targetRevision: 0.1.0 # chart version
+    helm:
+      parameters:
+      - name: "api.secret.name"
+        value: "kargo-api-admin"
+      # values: |
+      #   # values : https://github.com/akuity/kargo/blob/main/charts/kargo/values.yaml
+          # https://docs.kargo.io/operator-guide/security/secure-configuration/#securing-the-admin-account
+      #   # created this secret locally and applied (secret with auth; also precreating the ns bc of this)
+      #   api:
+      #     secret:
+      #       name: kargo-api-admin
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kargo
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
