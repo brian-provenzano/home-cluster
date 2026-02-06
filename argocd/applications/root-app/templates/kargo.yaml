@@ -17,7 +17,7 @@ spec:
       - name: "api.secret.name"
         value: "kargo-api-admin"
       - name: "crds.install"
-        value: true
+        value: "true"
       # values: |
       #   # values : https://github.com/akuity/kargo/blob/main/charts/kargo/values.yaml
           # https://docs.kargo.io/operator-guide/security/secure-configuration/#securing-the-admin-account
