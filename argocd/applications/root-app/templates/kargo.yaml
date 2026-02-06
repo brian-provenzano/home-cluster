@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: ghcr.io/akuity/kargo-charts # chart repo
     chart: kargo # chart name
-    targetRevision: 0.1.0 # chart version
+    targetRevision:  v1.8.9 # chart version
     helm:
       parameters:
       - name: "api.secret.name"
