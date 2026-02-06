@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://charts.jetstack.io  # chart repo
     chart: cert-manager # chart name
-    targetRevision: v1.17.1 # chart version
+    targetRevision: v1.18.3 # chart version
     helm:
       values: |
         # https://github.com/argoproj/argo-helm/blob/main/charts/argo-rollouts/values.yaml
